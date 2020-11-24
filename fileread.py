@@ -12,8 +12,7 @@ Created: 11/15/20
 """
 ERRORS THAT NEED TO BE FIXED:
 
-- Dealing with the case that the rent is 0 (cannot divide by 0 when determining management fee)
-- Dealing with the case that there are multiple lines of repairs in the repairs section
+Good for now!
 
 """
 
@@ -165,8 +164,11 @@ def clean_data(this_dict):
     this_dict['Fee'] = new_fee
 
     # Cleaning repairs
-    new_repair = repairs.split('\n')[0]
-    new_repair = float(new_repair.strip().strip('$'))
+    new_repair = 0
+    for i in range(repairs.count('$')):
+        this_line = repairs.split('\n')[i]
+        this_line = float(this_line.strip().strip('$'))
+        new_repair += this_line
     this_dict['Repairs'] = new_repair
 
 
@@ -175,8 +177,13 @@ def check_fee_percent(percent=.05):
     for dic in data:
         rent = dic['Rent']
         fee = dic['Fee']
+        if rent == 0:
+            if fee != 0:
+                raise_error(dic, 'Fee error', percent)
+            else:
+                continue
         actual_percent = round(fee / rent, 6)
-        if not((rent == 0.0 and fee == 0.0) or actual_percent == percent):
+        if actual_percent != percent:
             raise_error(dic, 'Fee error', percent)
 
 
