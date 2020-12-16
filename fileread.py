@@ -12,7 +12,7 @@ Created: 11/15/20
 """
 ERRORS THAT NEED TO BE FIXED:
 
-Good for now!
+Fix test function -- seems to double the actual amount for everything.
 
 """
 
