@@ -50,6 +50,7 @@ def raise_error(dic, type, percent=.05, col='', actual_due=''):
     """Raises an error of type TYPE. Sets RAISED_ERROR_FLAG
     to True.
     """
+    global raised_error_flag  # Need this statement to change value of a global variable
     raised_error_flag = True
     if type == 'Fee error':
         fee = dic['Fee']
@@ -167,7 +168,7 @@ def clean_data(this_dict):
     new_repair = 0
     for i in range(repairs.count('$')):
         this_line = repairs.split('\n')[i]
-        this_line = float(this_line.strip().strip('$'))
+        this_line = float(this_line.strip().strip('$').replace(',', ''))
         new_repair += this_line
     this_dict['Repairs'] = new_repair
 
