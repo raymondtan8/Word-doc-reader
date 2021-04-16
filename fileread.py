@@ -22,7 +22,7 @@ data = []
 raised_error_flag = False
 
 
-def test(filename='Edison.docx'):
+def test(filename='demo.docx'):
     """Runs a test of the main components."""
     init_data(filename)
     for x in data:
